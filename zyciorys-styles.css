@@ -324,7 +324,7 @@
     content: '✓';
     position: absolute;
     left: 0;
-    top: 12px;
+    top: 16px;
     color: var(--accent-color);
     font-weight: 700;
     font-size: 16px;
@@ -778,6 +778,52 @@
 
     .hero-bg-image {
         width: 200px;
+    }
+
+    @keyframes slideFromLeft {
+        0% {
+            opacity: 0;
+            transform: translateX(-100px);
+        }
+        5% {
+            opacity: 0.85;
+            transform: translateX(0);
+        }
+        20% {
+            opacity: 0.85;
+            transform: translateX(0);
+        }
+        25% {
+            opacity: 0;
+            transform: translateX(-100px);
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(-100px);
+        }
+    }
+
+    @keyframes slideFromRight {
+        0% {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+        5% {
+            opacity: 0.85;
+            transform: translateX(0);
+        }
+        20% {
+            opacity: 0.85;
+            transform: translateX(0);
+        }
+        25% {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(100px);
+        }
     }
 
     .biography-content {
