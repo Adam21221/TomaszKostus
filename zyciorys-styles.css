@@ -331,6 +331,128 @@
     line-height: 1;
 }
 
+/* Section Subtitle */
+.section-subtitle {
+    color: var(--primary-color);
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 30px;
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+/* Komisje Grid */
+.komisje-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.komisja-item {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.komisja-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.komisja-item h4 {
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.komisja-desc {
+    font-size: 14px;
+    color: var(--gray);
+    margin: 5px 0;
+    font-style: italic;
+}
+
+.komisja-item .role {
+    font-size: 14px;
+    color: var(--accent-color);
+    font-weight: 600;
+    margin: 8px 0 5px 0;
+}
+
+.komisja-item .date {
+    font-size: 13px;
+    color: var(--gray);
+    margin: 0;
+}
+
+/* Zespoły Grid */
+.zespoly-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.zespol-item {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.zespol-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.zespol-header {
+    margin-bottom: 12px;
+}
+
+.zespol-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #e9ecef;
+    color: var(--gray);
+}
+
+.zespol-badge.wiceprzewodniczacy {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.zespol-badge.przedstawiciel {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.zespol-item h4 {
+    color: var(--primary-color);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.zespol-item .date {
+    font-size: 13px;
+    color: var(--gray);
+    margin: 0;
+}
+
 /* Achievements Grid */
 .achievements-grid {
     display: grid;
@@ -828,6 +950,23 @@
 
     .biography-content {
         padding: 50px 0;
+    }
+
+    .komisje-grid,
+    .zespoly-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .komisja-item,
+    .zespol-item {
+        padding: 15px;
+    }
+
+    .section-subtitle {
+        font-size: 18px;
+        margin-top: 25px;
+        margin-bottom: 20px;
     }
 
     .bio-main {
