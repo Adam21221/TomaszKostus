@@ -62,22 +62,22 @@
 }
 
 .hero-bg-1 {
-    background-image: url('img/st1.jpg');
+    background-image: url('./img/st1.jpg');
     animation-delay: 0s;
 }
 
 .hero-bg-2 {
-    background-image: url('img/344670882_1592399651235399_149384932153833268_n.jpg');
+    background-image: url('./img/344670882_1592399651235399_149384932153833268_n.jpg');
     animation-delay: 5s;
 }
 
 .hero-bg-3 {
-    background-image: url('img/417405432_853481263266132_2560219406078043415_n.jpg');
+    background-image: url('./img/417405432_853481263266132_2560219406078043415_n.jpg');
     animation-delay: 10s;
 }
 
 .hero-bg-4 {
-    background-image: url('img/KU007250.jpg');
+    background-image: url('./img/KU007250.jpg');
     animation-delay: 15s;
 }
 
@@ -295,38 +295,40 @@
 }
 
 .bio-text p {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .bio-text strong {
     color: var(--primary-color);
     font-weight: 600;
     display: block;
-    margin-top: 25px;
-    margin-bottom: 15px;
-    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-size: 17px;
 }
 
 .bio-list {
     list-style: none;
     padding-left: 0;
-    margin: 15px 0;
+    margin: 5px 0 15px 0;
 }
 
 .bio-list li {
-    padding: 12px 0 12px 35px;
+    padding: 4px 0 4px 25px;
     position: relative;
     color: var(--text-color);
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .bio-list li::before {
     content: '✓';
     position: absolute;
     left: 0;
+    top: 12px;
     color: var(--accent-color);
     font-weight: 700;
-    font-size: 20px;
+    font-size: 16px;
+    line-height: 1;
 }
 
 /* Achievements Grid */
@@ -452,6 +454,7 @@
 .stat-mini .label {
     font-size: 14px;
     color: var(--gray);
+    text-align: right;
 }
 
 /* Sidebar List */
