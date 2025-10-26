@@ -1,153 +1,300 @@
-# Strona Internetowa - Tomasz Kostuś
+# BCU SPEDYCJA - System CMS i Panel Administratora
 
-Pełna, responsywna strona internetowa posła Tomasza Kostusia stworzona w czystym HTML, CSS i JavaScript.
+Kompletny system zarządzania treścią dla Branżowego Centrum Umiejętności SPEDYCJA z panelem administratora, autoryzacją użytkowników i API REST.
 
-## 📁 Struktura plików
+## 🚀 Funkcjonalności
+
+### 👥 Zarządzanie użytkownikami
+- **Rejestracja i logowanie** z weryfikacją email
+- **Role użytkowników:**
+  - `admin` - pełen dostęp, zarządzanie użytkownikami
+  - `redaktor` - zarządzanie treścią (kursy, aktualności, oferty)
+  - `wykladowca` - tworzenie kursów i aktualności
+  - `pracodawca` - dodawanie ofert pracy
+  - `kursant` - zapisywanie się na kursy
+
+### 📚 CMS - Zarządzanie treścią
+- **Kursy** - pełne zarządzanie z materiałami i aplikacjami
+- **Aktualności** - artykuły z systemem publikacji
+- **Oferty pracy** - zarządzanie przez pracodawców
+- **Materiały edukacyjne** - repozytorium plików i linków
+- **Aplikacje na kursy** - system zapisów z statusami
+
+### 🎛️ Panel Administratora (AdminJS)
+- Intuicyjny interfejs administracyjny
+- Zarządzanie wszystkimi zasobami
+- Kontrola uprawnień na podstawie ról
+- Automatyczne przypisywanie autorów
+
+### 🔌 API REST
+- Publiczne endpointy dla kursów, aktualności, ofert
+- Chronione endpointy dla zarządzania treścią
+- System autoryzacji oparty na sesjach
+- Walidacja i sanitizacja danych
+
+## 🛠️ Technologie
+
+- **Backend:** Node.js (>=16), Express.js
+- **Baza danych:** MongoDB (>=5) z Mongoose
+- **Autoryzacja:** Passport.js (local strategy)
+- **Panel admin:** AdminJS z React
+- **Sesje:** connect-mongo
+- **Bezpieczeństwo:** helmet, cors, rate limiting
+- **Frontend:** HTML/CSS/JavaScript (Tailwind CSS)
+
+## 📦 Instalacja
+
+### Wymagania
+- Node.js >= 16
+- MongoDB >= 5
+- npm lub yarn
+
+### Kroki instalacji
+
+1. **Sklonuj repozytorium i zainstaluj zależności:**
+```bash
+npm install
+```
+
+2. **Skonfiguruj zmienne środowiskowe:**
+```bash
+cp env.example .env
+```
+
+3. **Edytuj plik `.env`:**
+```env
+# Server Configuration
+PORT=3000
+NODE_ENV=development
+
+# Database
+MONGODB_URI=mongodb://localhost:27017/bcu_spedycja
+
+# Session Configuration
+SESSION_SECRET=your-super-secret-session-key-change-this-in-production
+
+# Admin User (created on first run)
+ADMIN_EMAIL=admin@bcu-spedycja.pl
+ADMIN_PASSWORD=Admin123!
+
+# File Upload
+UPLOAD_PATH=./public/uploads
+MAX_FILE_SIZE=5242880
+
+# Rate Limiting
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
+
+# CORS (opcjonalne - domeny produkcyjne dodawane automatycznie)
+ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+# W produkcji automatycznie dodawane:
+# https://app.bcu-spedycja.pl
+# https://www.bcu-spedycja.pl
+# https://bcu-spedycja.pl
+```
+
+4. **Uruchom MongoDB:**
+```bash
+# macOS z Homebrew
+brew services start mongodb-community
+
+# Ubuntu/Debian
+sudo systemctl start mongod
+
+# Windows
+net start MongoDB
+```
+
+5. **Utwórz konto administratora:**
+```bash
+npm run seed
+```
+
+6. **Uruchom serwer:**
+```bash
+# Produkcja
+npm start
+
+# Rozwój (z auto-reload)
+npm run dev
+```
+
+## 🌐 Dostęp do aplikacji
+
+- **Strona główna:** http://localhost:3000
+- **Kursy:** http://localhost:3000/courses
+- **Panel administratora:** http://localhost:3000/admin
+- **API:** http://localhost:3000/api
+
+## 👤 Logowanie do panelu administratora
+
+Po uruchomieniu `npm run seed` możesz się zalogować do panelu administratora:
+
+- **Email:** `admin@bcu-spedycja.pl`
+- **Hasło:** `Admin123!`
+
+## 📁 Struktura projektu
 
 ```
-Tomasz_Kostuś/
-├── index.html              # Główny plik HTML strony
-├── zyciorys.html           # Podstrona z życiorysem
-├── styles.css              # Główne style CSS
-├── zyciorys-styles.css     # Style dla podstrony życiorys
-├── script.js               # Interaktywność JavaScript
-└── README.md               # Ten plik
+bcu_html/
+├── src/
+│   ├── models/          # Modele Mongoose
+│   ├── routes/          # API routes
+│   ├── auth/           # Konfiguracja Passport.js
+│   ├── admin/          # Konfiguracja AdminJS
+│   ├── config/         # Konfiguracja bazy danych i sesji
+│   ├── app.js          # Główny plik aplikacji
+│   └── seed.js         # Skrypt tworzenia administratora
+├── public/             # Pliki statyczne (HTML, CSS, JS, obrazy)
+│   ├── assets/
+│   │   └── js/
+│   │       └── api.js  # Integracja API z frontendem
+│   ├── build.html      # Strona główna
+│   └── courses.html    # Strona kursów
+├── package.json
+├── env.example
+└── README.md
 ```
 
-## 🚀 Jak uruchomić stronę
+## 🔐 Bezpieczeństwo
 
-1. Otwórz plik `index.html` w przeglądarce internetowej (Chrome, Firefox, Safari, Edge)
-2. Możesz również użyć lokalnego serwera (np. Live Server w VS Code)
+- **Helmet.js** - nagłówki bezpieczeństwa HTTP
+- **CORS** - kontrola dostępu cross-origin
+- **Rate limiting** - ograniczenie liczby żądań
+- **Walidacja** - express-validator dla wszystkich inputów
+- **Sanityzacja** - czyszczenie danych wejściowych
+- **Sesje** - bezpieczne przechowywanie w MongoDB
+- **Hasła** - hashowanie bcrypt
 
-## 🖼️ Brakujące zasoby
+## 📊 API Endpoints
 
-Aby strona wyglądała w pełni kompletnie, potrzebujesz dodać następujące obrazy:
+### Publiczne (bez autoryzacji)
+- `GET /api/courses` - Lista opublikowanych kursów
+- `GET /api/courses/:slug` - Szczegóły kursu
+- `GET /api/news` - Lista aktualności
+- `GET /api/news/:slug` - Artykuł
+- `GET /api/job-offers` - Lista ofert pracy
+- `GET /api/job-offers/:id` - Szczegóły oferty
+- `GET /api/materials/public` - Publiczne materiały
+- `POST /api/applications` - Zapis na kurs
 
-### Obrazy wymagane:
-- `img/st1.jpg` - zdjęcie główne w hero section i na podstronie życiorys (sidebar) ✅
-- `img/2ANN_6865.jpeg` - zdjęcie w sekcji "O mnie" na stronie głównej ✅
-- `img/logo/Logo_Koalicja_Obywatelska_2023.svg` - logo Koalicji Obywatelskiej w menu ✅
-- `img/logo/2560px-Sejm_RP_logo_and_wordmark.png` - logo Sejmu RP w menu ✅
-- `img/logo/Polsat_News_Poziome_2021.svg.png` - logo Polsat News ✅
-- `img/logo/TVP_Info_logo.svg.png` - logo TVP Info ✅
-- `img/logo/Logotyp_Polskiego_Radia_24.svg.png` - logo Polskie Radio 24 ✅
-- `img/logo/op111_167266578512.jpg` - logo Opolskie (4. logo w sekcji media) ✅
-- `news1.jpg`, `news2.jpg`, `news3.jpg` - zdjęcia aktualności (opcjonalne)
+### Chronione (wymagana autoryzacja)
+- `POST /api/auth/login` - Logowanie
+- `POST /api/auth/register` - Rejestracja
+- `GET /api/auth/me` - Aktualny użytkownik
+- Wszystkie operacje CRUD dla kursów, aktualności, ofert (w zależności od roli)
 
-### Opcjonalne:
-- `hero-bg.jpg` - tło dla sekcji hero (opcjonalne, używane jako nakładka)
+## 🎯 Role i uprawnienia
 
-**Uwaga:** Jeśli nie dodasz obrazów, strona będzie działać z placeholderami.
+### Admin
+- Pełny dostęp do wszystkich funkcji
+- Zarządzanie użytkownikami i rolami
+- Moderowanie wszystkich treści
 
-## ✨ Funkcje strony
+### Redaktor
+- Zarządzanie kursami, aktualnościami, ofertami pracy
+- Brak dostępu do zarządzania użytkownikami
+- Publikowanie treści
 
-### 📱 Responsywna
-- Pełna responsywność na wszystkich urządzeniach
-- Optymalizacja dla mobile, tablet i desktop
+### Wykładowca
+- Tworzenie i edycja własnych kursów
+- Tworzenie aktualności
+- Przeglądanie aplikacji na swoje kursy
 
-### 🎨 Nowoczesny design
-- Gradient backgrounds
-- Animacje on scroll
-- Hover effects
-- Smooth scrolling
+### Pracodawca
+- Tworzenie i edycja własnych ofert pracy
+- Przeglądanie aplikacji na swoje oferty
 
-### 📋 Strona główna (index.html):
-1. **Header** - nawigacja sticky z logami KO i Sejmu
-2. **Hero "PRACA W SEJMIE"** - split layout (zdjęcie po lewej, tekst po prawej), animacje, efekty
-3. **O mnie** - informacje o pośle (zdjęcie pionowe + tekst + podpis)
-4. **Statystyki** - aktywność w liczbach (animowane wykresy kołowe)
-5. **Aktualności** - 3 najnowsze newsy
-6. **Filmy** - 4 pionowe video placeholdery
-7. **Galeria** - elegancki kolaż 8 zdjęć z `img/collage/`
-8. **W mediach** - 4 loga mediów
-9. **Kontakt** - dwa biura + formularz kontaktowy (obok siebie)
-10. **Stopka** - elegancka stopka z gradientem
+### Kursant
+- Przeglądanie opublikowanych treści
+- Zapisywanie się na kursy
+- Pobieranie materiałów
 
-### 📋 Podstrona życiorys (zyciorys.html):
-1. **Hero z tytułem** - elegancki header
-2. **O mnie** - wprowadzenie i misja
-3. **Działalność parlamentarna** - komisje i grupy
-4. **Priorytety i działania** - dla regionu i kraju
-5. **Kontakt z wyborcami** - spotkania i dyżury
-6. **Osiągnięcia** - karty z najważniejszymi sukcesami
-7. **Media i komunikacja** - obecność w mediach
-8. **Sidebar** - profil, statystyki, komisje, kontakt, social media
-9. **CTA Section** - zachęta do kontaktu
-10. **Stopka** - informacje końcowe
+## 🔧 Konfiguracja produkcji
 
-### 🔧 Funkcjonalności JavaScript:
-- Smooth scrolling przy kliknięciu w linki nawigacji
-- Animacje pojawiania się sekcji przy scrollowaniu
-- Działający formularz kontaktowy z walidacją
-- Efekt parallax na hero section
-- Active state dla nawigacji podczas scrollowania
+1. **Zmienne środowiskowe:**
+```env
+NODE_ENV=production
+MONGODB_URI=mongodb://your-production-db
+SESSION_SECRET=very-secure-secret-key
+```
 
-## 🎯 Dostosowywanie
-
-### Kolory
-Kolory można łatwo zmienić w pliku `styles.css` w sekcji `:root`:
-
-```css
-:root {
-    --primary-color: #1a1a1a;
-    --secondary-color: #2c3e50;
-    --accent-color: #c41e3a;
-    --text-color: #333;
-    --light-bg: #f8f9fa;
-    --white: #ffffff;
-    --gray: #666;
+2. **Reverse proxy (Nginx):**
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+    
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
 }
 ```
 
-### Treść
-Cała treść znajduje się w pliku `index.html` i można ją łatwo edytować.
-
-### Formularz kontaktowy
-Obecnie formularz wyświetla komunikat sukcesu po wysłaniu. 
-Aby podłączyć prawdziwy backend, zmodyfikuj funkcję w `script.js`:
-
-```javascript
-// Przykład integracji z backend
-fetch('/api/contact', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData)
-})
+3. **PM2 (process manager):**
+```bash
+npm install -g pm2
+pm2 start src/app.js --name "bcu-cms"
+pm2 startup
+pm2 save
 ```
 
-### Media społecznościowe
-Linki do mediów społecznościowych są ustawione na przykładowe adresy:
-- Facebook: `https://www.facebook.com/tomaszkostus`
-- Instagram: `https://www.instagram.com/tomaszkostus`
-- TikTok: `https://www.tiktok.com/@tomaszkostus`
-- X (Twitter): `https://twitter.com/tomaszkostus`
+## 🐛 Rozwiązywanie problemów
 
-Aby zmienić linki na prawdziwe, edytuj sekcję Social Media w pliku `index.html` (linie 223-242).
+### MongoDB connection error
+```bash
+# Sprawdź czy MongoDB działa
+mongosh --eval "db.runCommand('ping')"
 
-## 🌐 Hosting
+# Restart MongoDB
+brew services restart mongodb-community  # macOS
+sudo systemctl restart mongod            # Linux
+```
 
-Stronę możesz hostować na:
-- GitHub Pages (darmowy)
-- Netlify (darmowy)
-- Vercel (darmowy)
-- Dowolny hosting www
+### Port already in use
+```bash
+# Znajdź proces używający portu 3000
+lsof -ti:3000
 
-## 📞 Kontakt
+# Zabij proces
+kill -9 $(lsof -ti:3000)
+```
 
-Strona zawiera formularz kontaktowy oraz informacje o dwóch biurach:
-- **Biuro Poselskie Opole** - ul. Katowicka 55 lok. 2.9
-- **Biuro Regionu Opole** - ul. Krakowska 31
+### Admin panel nie działa
+```bash
+# Sprawdź czy admin został utworzony
+npm run seed
 
-Email: poselkostus@gmail.com
+# Sprawdź logi
+npm run dev
+```
 
-## 📄 Licencja
+## 📝 Licencja
 
-Strona stworzona na podstawie oficjalnej strony Tomasza Kostusia.
+MIT License - zobacz plik LICENSE dla szczegółów.
 
----
+## 🤝 Wsparcie
 
-**Przygotowane przez:** AI Assistant  
-**Data:** Październik 2025
+W przypadku problemów lub pytań:
+1. Sprawdź sekcję "Rozwiązywanie problemów"
+2. Przejrzyj logi aplikacji
+3. Sprawdź konfigurację bazy danych
+4. Skontaktuj się z zespołem developerskim
 
+## 🚀 Wdrożenie
+
+Aplikacja jest gotowa do wdrożenia na:
+- **Heroku** (z MongoDB Atlas)
+- **DigitalOcean** (z Docker)
+- **AWS EC2** (z RDS MongoDB)
+- **VPS** (z lokalnym MongoDB)
+
+Wszystkie niezbędne konfiguracje są zawarte w kodzie i dokumentacji.
