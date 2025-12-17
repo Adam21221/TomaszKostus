@@ -526,15 +526,23 @@ body {
     .report-header {
         margin-bottom: 30px;
         border-radius: 12px;
+        display: flex;
+        flex-direction: column;
     }
     
     .report-image {
-        height: 280px;
+        height: 300px;
+        position: relative;
+    }
+    
+    .report-image img {
+        object-position: top center;
     }
     
     .report-title-wrapper {
-        padding: 50px 20px 25px;
-        background: linear-gradient(to top, rgba(10, 22, 40, 1) 0%, rgba(10, 22, 40, 0.9) 60%, transparent 100%);
+        position: relative;
+        padding: 25px 20px;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     }
     
     .report-title-wrapper h2 {
@@ -568,11 +576,11 @@ body {
     }
     
     .report-image {
-        height: 250px;
+        height: 280px;
     }
     
     .report-title-wrapper {
-        padding: 40px 15px 20px;
+        padding: 20px 15px;
     }
     
     .report-title-wrapper h2 {
