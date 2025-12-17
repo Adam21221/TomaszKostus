@@ -93,71 +93,42 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Smooth fade-in for hero section
-window.addEventListener('load', () => {
-    const heroImage = document.querySelector('.hero-image');
-    const heroText = document.querySelector('.hero-text');
-    
-    if (heroImage) {
-        heroImage.style.opacity = '1';
-        heroImage.style.transform = 'scale(1)';
-    }
-    
-    if (heroText) {
-        heroText.style.opacity = '1';
-        heroText.style.transform = 'translateX(0)';
-    }
-});
+// Hero section is now visible immediately without waiting for full page load
 
-// Animate circular progress bars
-function animateProgressBars() {
-    const progressBars = document.querySelectorAll('.circular-progress');
+// Animate modern stat cards
+function animateStatCards() {
+    const statCards = document.querySelectorAll('.stat-card');
     
-    progressBars.forEach(bar => {
-        const percent = bar.getAttribute('data-percent');
-        const circle = bar.querySelector('.progress-ring-circle');
-        const numberElement = bar.querySelector('.stat-number');
-        const radius = circle.r.baseVal.value;
-        const circumference = 2 * Math.PI * radius;
-        const offset = circumference - (percent / 100) * circumference;
+    statCards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const isInViewport = rect.top <= window.innerHeight * 0.85;
         
-        circle.style.strokeDasharray = `${circumference} ${circumference}`;
-        circle.style.strokeDashoffset = circumference;
-        
-        // Check if element is in viewport
-        const rect = bar.getBoundingClientRect();
-        const isInViewport = rect.top <= window.innerHeight * 0.75;
-        
-        if (isInViewport && !bar.classList.contains('animated')) {
-            bar.classList.add('animated');
+        if (isInViewport && !card.classList.contains('animated')) {
+            card.classList.add('animated');
             
-            // Animate the circle
-            setTimeout(() => {
-                circle.style.strokeDashoffset = offset;
-            }, 100);
-            
-            // Animate the number
-            const finalText = numberElement.textContent;
-            const isPercentage = finalText.includes('%');
-            const finalNumber = parseFloat(finalText.replace(/[^\d.,]/g, '').replace(',', '.'));
-            
-            if (!isNaN(finalNumber)) {
+            const numberElement = card.querySelector('.stat-number-modern');
+            if (numberElement) {
+                const target = parseFloat(numberElement.getAttribute('data-target'));
+                const suffix = numberElement.getAttribute('data-suffix') || '';
+                const isDecimal = target % 1 !== 0;
+                
                 let currentNumber = 0;
-                const increment = finalNumber / 100;
                 const duration = 2000;
-                const stepTime = duration / 100;
+                const steps = 60;
+                const increment = target / steps;
+                const stepTime = duration / steps;
                 
                 const counter = setInterval(() => {
                     currentNumber += increment;
-                    if (currentNumber >= finalNumber) {
-                        currentNumber = finalNumber;
+                    if (currentNumber >= target) {
+                        currentNumber = target;
                         clearInterval(counter);
                     }
                     
-                    if (isPercentage) {
-                        numberElement.textContent = currentNumber.toFixed(1).replace('.', ',') + '%';
+                    if (isDecimal) {
+                        numberElement.textContent = currentNumber.toFixed(2).replace('.', ',') + suffix;
                     } else {
-                        numberElement.textContent = Math.round(currentNumber);
+                        numberElement.textContent = Math.round(currentNumber) + suffix;
                     }
                 }, stepTime);
             }
@@ -166,8 +137,8 @@ function animateProgressBars() {
 }
 
 // Run on scroll and load
-window.addEventListener('scroll', animateProgressBars);
-window.addEventListener('load', animateProgressBars);
+window.addEventListener('scroll', animateStatCards);
+window.addEventListener('load', animateStatCards);
 
 // Hamburger menu toggle
 const hamburger = document.querySelector('.hamburger');
