@@ -70,10 +70,14 @@
         <div class="container">
             <div class="report-header">
                 <div class="report-image">
-                    <img src="img/zdjecie_baner.jpg" alt="Tomasz Kostuś - praca w Sejmie" loading="lazy">
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="img/2zdjecie_baner.jpg">
+                        <img src="img/zdjecie_baner.jpg" alt="Tomasz Kostuś - praca w Sejmie" loading="lazy">
+                    </picture>
                 </div>
                 <div class="report-title-wrapper">
                     <h2>RAPORT Z PRACY</h2>
+                    <p class="days-counter"><span id="daysCount">0</span> dni pracy w X kadencji Sejmu RP</p>
                     <p class="report-years">2023-2025</p>
                     <p class="report-subtitle">Dwa lata intensywnej pracy w X kadencji Sejmu</p>
                 </div>

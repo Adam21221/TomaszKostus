@@ -480,6 +480,20 @@ body {
     border-radius: 2px;
 }
 
+.days-counter {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+    margin: 0 0 8px 0;
+    letter-spacing: 1px;
+}
+
+.days-counter span {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent-light);
+}
+
 .report-years {
     font-size: 14px;
     color: rgba(255, 255, 255, 0.6);

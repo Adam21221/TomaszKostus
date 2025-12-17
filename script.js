@@ -95,6 +95,19 @@ window.addEventListener('scroll', () => {
 
 // Hero section is now visible immediately without waiting for full page load
 
+// Days counter - from December 13, 2023
+(function() {
+    const startDate = new Date(2023, 11, 13); // December 13, 2023
+    const today = new Date();
+    const diffTime = Math.abs(today - startDate);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    
+    const counter = document.getElementById('daysCount');
+    if (counter) {
+        counter.textContent = diffDays;
+    }
+})();
+
 // Animate modern stat cards
 function animateStatCards() {
     const statCards = document.querySelectorAll('.stat-card');
