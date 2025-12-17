@@ -168,3 +168,55 @@ if (hamburger) {
     });
 }
 
+// Christmas Popup - shows from December 17 to December 26
+(function() {
+    const popup = document.getElementById('christmasPopup');
+    if (!popup) return;
+    
+    const today = new Date();
+    const year = today.getFullYear();
+    const startDate = new Date(year, 11, 17); // December 17
+    const endDate = new Date(year, 11, 26, 23, 59, 59); // December 26, end of day
+    
+    // Check if we're in the Christmas period
+    const isChristmasPeriod = today >= startDate && today <= endDate;
+    
+    // Check if user already closed popup today
+    const lastClosed = localStorage.getItem('christmasPopupClosed');
+    const todayString = today.toDateString();
+    const alreadyClosedToday = lastClosed === todayString;
+    
+    if (isChristmasPeriod && !alreadyClosedToday) {
+        // Show popup after a short delay
+        setTimeout(() => {
+            popup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }, 1000);
+    }
+    
+    // Close popup function
+    function closePopup() {
+        popup.classList.remove('active');
+        document.body.style.overflow = '';
+        localStorage.setItem('christmasPopupClosed', todayString);
+    }
+    
+    // Close button
+    const closeBtn = popup.querySelector('.popup-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closePopup);
+    }
+    
+    // Close on overlay click
+    const overlay = popup.querySelector('.popup-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', closePopup);
+    }
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && popup.classList.contains('active')) {
+            closePopup();
+        }
+    });
+})();
