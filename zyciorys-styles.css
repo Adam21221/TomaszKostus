@@ -437,6 +437,11 @@
     color: var(--gray);
 }
 
+.zespol-badge.przewodniczacy {
+    background: linear-gradient(135deg, #1a6b3c 0%, #2ecc71 100%);
+    color: white;
+}
+
 .zespol-badge.wiceprzewodniczacy {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
