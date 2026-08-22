@@ -833,6 +833,15 @@ body {
     .card-wide {
         grid-column: span 1;
     }
+
+    .card-image {
+        height: 280px;
+    }
+
+    .card-image img {
+        height: 100%;
+        object-fit: cover;
+    }
     
     .activity-cards h2 {
         font-size: 32px;
@@ -1041,16 +1050,21 @@ body {
 
 @media (max-width: 768px) {
     .stats-modern {
-        padding: 60px 0;
+        padding: 40px 0;
+    }
+
+    .stats-header {
+        margin-bottom: 30px;
     }
     
     .stats-header h2 {
-        font-size: 32px;
+        font-size: 28px;
+        letter-spacing: 2px;
     }
     
     .stats-grid-modern {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 16px;
     }
     
     .stat-card {
@@ -1059,6 +1073,15 @@ body {
     
     .stat-number-modern {
         font-size: 40px;
+    }
+
+    .news {
+        padding: 40px 0 60px;
+    }
+
+    .news h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
     }
 }
 
